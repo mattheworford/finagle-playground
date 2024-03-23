@@ -1,15 +1,15 @@
 package client
 
+import com.twitter.finagle.http.{Method, Request, Response}
 import com.twitter.finagle.{Http, Service}
-import com.twitter.finagle.http
-import com.twitter.util.{Await, Future}
+import com.twitter.util.Future
 
 object SimpleClient {
   def main(args: Array[String]): Unit = {
-    val client: Service[http.Request, http.Response] = Http.newService("localhost:9090")
+    val client: Service[Request, Response] = Http.newService("localhost:9090")
 
-    val request = http.Request(http.Method.Get, "/?name=matthew")
-    val response: Future[http.Response] = client(request)
+    val request = Request(Method.Get, "/?name=matthew")
+    val response: Future[Response] = client(request)
 
     response.onSuccess(resp => println(resp.getContentString()))
     response.onFailure(ex => ex.printStackTrace())
