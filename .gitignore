@@ -1,20 +1,32 @@
-*.class
-*.log
+# macOS
+.DS_Store
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# sbt specific
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+project/local-plugins.sbt
+.history
+.ensime
+.ensime_cache/
+.sbt-scripted/
+local.sbt
 
-# Default ignored files
-/shelf/
-/workspace.xml
+# Bloop
+.bsp
 
-# Editor-based HTTP Client requests
-/httpRequests/
+# VS Code
+.vscode/
 
-# Datasource local storage ignored files
-/dataSources/
-/dataSources.local.xml
+# Metals
+.bloop/
+.metals/
+metals.sbt
 
-# IntelliJ IDE files
-/.idea
-
+# IDEA
+.idea
+.idea_modules
+/.worksheet/
