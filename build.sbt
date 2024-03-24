@@ -7,6 +7,8 @@ lazy val root = (project in file(".")).
     name := "finagle-playground",
     libraryDependencies ++= Seq(
       "com.twitter" %% "finagle-core" % "23.11.0",
-      "com.twitter" %% "finagle-http" % "23.11.0"
+      "com.twitter" %% "finagle-http" % "23.11.0",
+      "org.scalatest" %% "scalatest" % "3.2.9" % Test,
+      "org.mockito" % "mockito-core" % "3.12.4" % Test
     )
   )
