@@ -10,8 +10,7 @@ object LoadBalancedClient {
       (9089 to 9091).toList.map(port => Address("localhost", port))
     val name: Name = Name.bound(addresses: _*)
     val client     = Http.newService(name, "client")
-    val requests =
-      (1 to 20).map(_ => Request(Method.Get, "/"))
+    val requests = (1 to 20).map(_ => Request(Method.Get, "/"))
     val responses = requests.map(req => client(req).map(_.getContentString))
 
     Future.collect(responses).foreach(println)
