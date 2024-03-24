@@ -11,7 +11,7 @@ object LoadBalancedClient {
     val name: Name = Name.bound(addresses: _*)
     val client     = Http.newService(name, "client")
     val requests =
-      (1 to 20).map(i => Request(Method.Get, s"?string=${"matthew" * i}"))
+      (1 to 20).map(_ => Request(Method.Get, "/"))
     val responses = requests.map(req => client(req).map(_.getContentString))
 
     Future.collect(responses).foreach(println)
