@@ -7,11 +7,11 @@ object Main extends App {
   private val stringLengthService = StringLengthService.init()
   private def simpleHttpServer(port: Int) =
     Http.serve(
-      s":${port}",
+      s":$port",
       new DebugFilter(s"server-$port").andThen(stringLengthService),
     )
 
-  (9090 to 9090)
+  (9089 to 9091)
     .map { port =>
       simpleHttpServer(port)
     }
