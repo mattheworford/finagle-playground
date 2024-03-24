@@ -1,10 +1,19 @@
-
 import com.twitter.finagle.Http
 import com.twitter.util.Await
+import filter.DebugFilter
 import service.StringLengthService
 
 object Main extends App {
-  val service = StringLengthService.init()
-  private val server = Http.serve(":9090", service)
-  Await.ready(server)
+  private val stringLengthService = StringLengthService.init()
+  private def simpleHttpServer(port: Int) =
+    Http.serve(
+      s":${port}",
+      new DebugFilter(s"server-$port").andThen(stringLengthService),
+    )
+
+  (9090 to 9090)
+    .map { port =>
+      simpleHttpServer(port)
+    }
+    .foreach(server => Await.ready(server))
 }

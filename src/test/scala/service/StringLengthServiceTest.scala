@@ -14,7 +14,7 @@ class StringLengthServiceTest extends AnyFlatSpec with Matchers {
 
     val response = StringLengthService.init().apply(mockRequest)
 
-    Await.result(response).getContentString() should be ("7")
+    Await.result(response).getContentString() should be("7")
   }
 
   it should "return 0 when empty string is provided" in {
@@ -23,7 +23,7 @@ class StringLengthServiceTest extends AnyFlatSpec with Matchers {
 
     val response = StringLengthService.init().apply(mockRequest)
 
-    Await.result(response).getContentString() should be ("0")
+    Await.result(response).getContentString() should be("0")
   }
 
   it should "return a BadRequest status when no string is provided" in {
@@ -32,6 +32,6 @@ class StringLengthServiceTest extends AnyFlatSpec with Matchers {
 
     val response = StringLengthService.init().apply(mockRequest)
 
-    Await.result(response).status should be (Status.BadRequest)
+    Await.result(response).status should be(Status.BadRequest)
   }
 }

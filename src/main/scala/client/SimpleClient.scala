@@ -6,7 +6,7 @@ import com.twitter.util.Future
 
 class SimpleClient(service: Service[Request, Response]) {
   def sendRequest(path: String): Future[Response] = {
-    val request = Request(Method.Get, path)
+    val request  = Request(Method.Get, path)
     val response = service(request)
     response.onSuccess(resp => println(resp.getContentString()))
     response.onFailure(ex => ex.printStackTrace())
@@ -15,7 +15,7 @@ class SimpleClient(service: Service[Request, Response]) {
 object SimpleClient {
   def main(args: Array[String]): Unit = {
     val service: Service[Request, Response] = Http.newService("localhost:9090")
-    val client = new SimpleClient(service)
+    val client                              = new SimpleClient(service)
     client.sendRequest("/?string=matthew")
   }
 }
