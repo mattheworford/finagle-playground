@@ -1,10 +1,11 @@
 package service
 
-import com.twitter.finagle.Service
+import com.twitter.finagle.{Http, Service}
 import com.twitter.finagle.http.{Request, Response, Status}
-import com.twitter.util.Future
+import com.twitter.util.{Await, Future}
+import filter.DebugFilter
 
-object StringLengthService {
+object StringLengthService extends App {
   def init(): Service[Request, Response] = { (req: Request) =>
     val nameOption = Option(req.getParam("string"))
     nameOption match {
@@ -16,7 +17,6 @@ object StringLengthService {
         )
     }
   }
-
   private def createResponse(
     req: Request,
     content: String,
@@ -26,4 +26,15 @@ object StringLengthService {
     response.setContentString(content)
     response
   }
+  private def simpleHttpServer(port: Int) =
+    Http.serve(
+      s":$port",
+      new DebugFilter(s"server-$port").andThen(init()),
+    )
+
+  (9089 to 9091)
+    .map { port =>
+      simpleHttpServer(port)
+    }
+    .foreach(server => Await.ready(server))
 }
